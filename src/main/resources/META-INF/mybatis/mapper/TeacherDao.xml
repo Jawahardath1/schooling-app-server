@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.orgid.schools.dao.TeacherDao">
+
+	<sql id="selectTeacher">
+        SELECT
+			 teacher.*			
+		FROM teacher		
+		WHERE 1=1
+    </sql>
+    
+	<select id="getTeacher" parameterType="com.orgid.schools.vo.TeacherVo" resultType="com.orgid.schools.vo.TeacherVo">
+        <include refid="selectTeacher" />
+        <if test="id 			!= null and id 			!= ''">    AND id 			= #{id} 							</if>
+        <if test="teacherid 	!= null and teacherid 	!= ''">    AND teacherid 	= #{teacherid} 						</if>
+        <if test="firstname 	!= null and firstname 	!= ''">    AND firstname 	LIKE CONCAT('%',#{firstname},'%') 	</if>
+        <if test="middlename  	!= null and middlename  != ''">    AND middlename  	LIKE CONCAT('%',#{middlename},'%')  </if>
+        <if test="lastname  	!= null and lastname  	!= ''">    AND lastname  	LIKE CONCAT('%',#{lastname},'%')   	</if>
+        <if test="address  		!= null and address  	!= ''">    AND address  	LIKE CONCAT('%',#{address},'%')   	</if>
+        <if test="city  		!= null and city  		!= ''">    AND city  		LIKE CONCAT('%',#{city},'%')   		</if>
+        <if test="country  		!= null and country  	!= ''">    AND country  	LIKE CONCAT('%',#{country},'%')   	</if>
+        <if test="state  		!= null and state  		!= ''">    AND state  		LIKE CONCAT('%',#{state},'%')   	</if>
+        <if test="zipcode  		!= null and zipcode  	!= ''">    AND zipcode  	LIKE CONCAT('%',#{zipcode},'%')   	</if>
+        <if test="created_by  	!= null and created_by  != ''">    AND created_by  	LIKE CONCAT('%',#{created_by},'%')   </if>
+        <if test="updated_by  	!= null and updated_by  != ''">    AND created_by  	LIKE CONCAT('%',#{created_by},'%')   </if>        
+    </select>
+    
+    <update id="updateTeacher" parameterType="com.orgid.schools.vo.TeacherVo">
+        UPDATE teacher
+        SET
+             firstname      = #{firstname}
+			,middlename     = #{middlename}
+			,lastname       = #{lastname}						
+			,zipcode        = #{zipcode}			
+        WHERE teacherid     = #{teacherid}
+    </update>
+     
+</mapper>

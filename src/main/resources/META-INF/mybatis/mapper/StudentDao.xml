@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.orgid.schools.dao.StudentDao">
+
+	<sql id="selectStudent">
+        SELECT
+			 student.*			
+		FROM student		
+		WHERE 1=1
+    </sql>
+    
+	<select id="getStudent" parameterType="com.orgid.schools.vo.StudentVo" resultType="com.orgid.schools.vo.StudentVo">
+        <include refid="selectStudent" />
+        <if test="id 			!= null and id 			!= ''">    AND id 			= #{id} 							</if>
+        <if test="studentid 	!= null and studentid 	!= ''">    AND studentid 	= #{studentid} 						</if>
+        <if test="firstname 	!= null and firstname 	!= ''">    AND firstname 	LIKE CONCAT('%',#{firstname},'%') 	</if>
+        <if test="middlename  	!= null and middlename  != ''">    AND middlename  	LIKE CONCAT('%',#{middlename},'%')  </if>
+        <if test="lastname  	!= null and lastname  	!= ''">    AND lastname  	LIKE CONCAT('%',#{lastname},'%')   	</if>
+        <if test="address  		!= null and lastname  	!= ''">    AND lastname  	LIKE CONCAT('%',#{lastname},'%')   	</if>
+        <if test="city  		!= null and lastname  	!= ''">    AND lastname  	LIKE CONCAT('%',#{lastname},'%')   	</if>
+        <if test="country  		!= null and lastname  	!= ''">    AND lastname  	LIKE CONCAT('%',#{lastname},'%')   	</if>
+        <if test="state  		!= null and lastname  	!= ''">    AND lastname  	LIKE CONCAT('%',#{lastname},'%')   	</if>
+        <if test="zipcode  		!= null and lastname  	!= ''">    AND lastname  	LIKE CONCAT('%',#{lastname},'%')   	</if>        
+    </select>
+    
+    <update id="updateStudent" parameterType="com.orgid.schools.vo.StudentVo">
+        UPDATE student
+        SET
+             firstname      = #{firstname}
+			,middlename     = #{middlename}
+			,lastname       = #{lastname}						
+			,zipcode        = #{zipcode}			
+        WHERE studentid     = #{studentid}
+    </update>
+    
+    <!-- <sql id="selectUser">
+        SELECT
+			 TN_User.*
+			,Company.isUseKnox
+		FROM TN_User 
+		LEFT JOIN Company ON TN_User.CompanyCode = Company.CompanyCode
+		WHERE 1=1
+    </sql> -->
+	
+	<!-- <select id="getUser" parameterType="com.samsung.cr2.common.vo.UserVo" resultType="com.samsung.cr2.common.vo.UserVo">
+        <include refid="selectUser" />
+        <if test="email != null and email != ''">               AND Email = #{email}             </if>
+        <if test="companyCode != null and companyCode != ''">   AND CompanyCode = #{companyCode} </if>
+    </select>
+    
+    <select id="getUserList" parameterType="com.samsung.cr2.common.vo.UserVo" resultType="com.samsung.cr2.common.vo.UserVo">
+        <include refid="selectUser" />
+        <if test="email            != null and email            != ''"> AND Email            LIKE '%' + #{email} + '%'            </if>
+		<if test="companyCode       != null and companyCode       != ''"> AND CompanyCode       = #{companyCode}                      </if>
+		<if test="buildingIdx      != null and buildingIdx      != ''"> AND BuildingIdx      = #{buildingIdx}                     </if>
+		<if test="floorIdx         != null and floorIdx         != ''"> AND FloorIdx         = #{floorIdx}                        </if>
+		<if test="passWord         != null and passWord         != ''"> AND PassWord         = #{passWord}                        </if>
+		<if test="isInitialPWD     != null and isInitialPWD     != ''"> AND IsInitialPWD     = #{isInitialPWD}                    </if>
+		<if test="empNo            != null and empNo            != ''"> AND empNo            = #{empNo}                           </if>
+		<if test="mySingleID       != null and mySingleID       != ''"> AND mySingleID       LIKE '%' +  #{mySingleID} + '%'      </if>
+		<if test="mySingleEmail    != null and mySingleEmail    != ''"> AND mySingleEmail    LIKE '%' +  #{mySingleEmail} + '%'   </if>
+		<if test="firstName        != null and firstName        != ''"> AND FirstName        LIKE '%' +  #{firstName} + '%'       </if>
+		<if test="middleName       != null and middleName       != ''"> AND MiddleName       LIKE '%' +  #{middleName} + '%'      </if>
+		<if test="lastName         != null and lastName         != ''"> AND LastName         LIKE '%' +  #{lastName} + '%'        </if>
+		<if test="epCompanyCode    != null and epCompanyCode    != ''"> AND EPCompanyCode    = #{epCompanyCode}                   </if>
+		<if test="epORGName        != null and epORGName        != ''"> AND EPORGNName        LIKE '%' +  #{epORGName + '%'}       </if>
+		<if test="epORGCode        != null and epORGCode        != ''"> AND EPORGCode        = #{epORGCode}                       </if>
+		<if test="epID             != null and epID             != ''"> AND EPID             = #{epID}                            </if>
+		<if test="epTitle          != null and epTitle          != ''"> AND EPTitle          LIKE '%' +  #{epTitle} + '%'         </if>
+		<if test="deptCode         != null and deptCode         != ''"> AND DeptCode         = #{deptCode}                        </if>
+		<if test="deptName         != null and deptName         != ''"> AND DeptName         LIKE '%' +  #{deptName + '%'}        </if>
+		<if test="role             != null and role             != ''"> AND Role             = #{role}                            </if>
+		<if test="status           != null and status           != ''"> AND Status           = #{status}                          </if>
+		<if test="emailContentType != null and emailContentType != ''"> AND EmailContentType = #{emailContentType}                </if>
+		<if test="loginFailCNT     != null and loginFailCNT     != ''"> AND LoginFailCNT     = #{loginFailCNT}                    </if>
+		<if test="isBatchManaged   != null and isBatchManaged   != ''"> AND IsBatchManaged   = #{isBatchManaged}                  </if>
+		<if test="isNotification   != null and isNotification   != ''"> AND IsNotification   = #{isNotification}                  </if>
+		<if test="createDate       != null and createDate       != ''"> AND CreateDate       = #{createDate}                      </if>
+		<if test="createUser       != null and createUser       != ''"> AND CreateUser       = #{createUser}                      </if>
+		<if test="updateDate       != null and updateDate       != ''"> AND UpdateDate       = #{updateDate}                      </if>
+		<if test="updateUser       != null and updateUser       != ''"> AND UpdateUser       = #{updateUser}                      </if>
+		<if test="deleteDate       != null and deleteDate       != ''"> AND DeleteDate       = #{deleteDate}                      </if>
+		<if test="deleteUser       != null and deleteUser       != ''"> AND DeleteUser       = #{deleteUser}                      </if>
+    </select>
+    
+    <insert id="insertUser" parameterType="com.samsung.cr2.common.vo.UserVo" useGeneratedKeys="true" keyProperty="idx">
+        INSERT INTO TN_User
+		(
+		    Email
+		    ,CompanyCode
+		    ,BuildingIdx
+		    ,FloorIdx
+		    ,PassWord
+		    ,IsInitialPWD
+		    ,empNo
+		    ,mySingleID
+		    ,mySingleEmail
+		    ,FirstName
+		    ,MiddleName
+		    ,LastName
+		    ,EPCompanyCode
+		    ,EPORGName
+		    ,EPORGCode
+		    ,EPID
+		    ,EPTitle
+		    ,DeptCode
+		    ,DeptName
+		    ,Role
+		    ,Status
+		    ,EmailContentType
+		    ,LoginFailCNT
+		    ,IsBatchManaged
+		    ,IsNotification
+		    ,CreateDate
+		    ,CreateUser
+		    ,UpdateDate
+		    ,UpdateUser
+		    ,DeleteDate
+		    ,DeleteUser
+		)
+		VALUES(
+		    #{email}
+		    ,#{companyCode}
+		    ,#{buildingIdx}
+		    ,#{floorIdx}
+		    ,#{passWord}
+		    ,#{isInitialPWD}
+		    ,#{empNo}
+		    ,#{mySingleID}
+		    ,#{mySingleEmail}
+		    ,#{firstName}
+		    ,#{middleName}
+		    ,#{lastName}
+		    ,#{epCompanyCode}
+		    ,#{epORGName}
+		    ,#{epORGCode}
+		    ,#{epID}
+		    ,#{epTitle}
+		    ,#{deptCode}
+		    ,#{deptName}
+		    ,#{role}
+		    ,#{status}
+		    ,#{emailContentType}
+		    ,#{loginFailCNT}
+		    ,#{isBatchManaged}
+		    ,#{isNotification}
+		    ,NOW()
+		    ,#{createUser}
+		    ,NOW()
+		    ,#{updateUser}
+		    ,#{deleteDate}
+		    ,#{deleteUser}
+		)
+    </insert>
+    
+    <update id="updateUser" parameterType="com.samsung.cr2.common.vo.UserVo">
+        UPDATE TN_User
+        SET
+             BuildingIdx      = #{buildingIdx}
+			,FloorIdx         = #{floorIdx}
+			,PassWord         = #{passWord}
+			,IsInitialPWD     = #{isInitialPWD}
+			,empNo            = #{empNo}
+			,mySingleID       = #{mySingleID}
+			,mySingleEmail    = #{mySingleEmail}
+			,FirstName        = #{firstName}
+			,MiddleName       = #{middleName}
+			,LastName         = #{lastName}
+			,EpCompanyCode    = #{epCompanyCode}
+			,EpORGName        = #{epORGName}
+			,EpORGCode        = #{epORGCode}
+			,EpID             = #{epID}
+			,EpTitle          = #{epTitle}
+			,DeptCode         = #{deptCode}
+			,DeptName         = #{deptName}
+			,Role             = #{role}
+			,Status           = #{status}
+			,EmailContentType = #{emailContentType}
+			,LoginFailCNT     = #{loginFailCNT}
+			,IsBatchManaged   = #{isBatchManaged}
+			,IsNotification   = #{isNotification}
+			,UpdateDate       = NOW()
+			,UpdateUser       = #{updateUser}
+			<if test="deleteUser != null and deleteUser != ''">
+			,DeleteDate = NOW()
+            ,DeleteUser = #{deleteUser}
+            </if>
+        WHERE Email = #{email} AND CompanyCode = #{companyCode}
+    </update>  -->   
+</mapper>
