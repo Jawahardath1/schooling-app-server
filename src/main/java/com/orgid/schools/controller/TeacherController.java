@@ -7,14 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.orgid.schools.vo.StudentVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.orgid.schools.model.Teacher;
 import com.orgid.schools.security.CurrentUser;
@@ -83,4 +80,31 @@ public class TeacherController {
 		response.put("message", "Ok");
 		return response;
 	}
+
+	@PutMapping
+	public ResponseEntity<?> updateTeacher(@RequestBody TeacherVo vo, @CurrentUser UserPrincipal currentUser) {
+
+		Map<String, Object> response = new HashMap<String, Object>();
+		response.put("completed", true);
+		response.put("httpCode", "200");
+		response.put("message", "Ok");
+
+		// Check if Student Id already exists or not
+		if(!teacherService.existsByteacherid(vo.getTeacherid())) {
+			response.put("completed", false);
+			response.put("httpCode", "200");
+			response.put("message", "Teacher Id does not exist");
+			response.put("returnValue", null);
+			ResponseEntity<?> responseEntity = new ResponseEntity<>(response, HttpStatus.OK);
+			return responseEntity;
+		}
+
+		int studentResponse = teacherService.updateTeacher(vo);
+		response.put("returnValue", studentResponse);
+		ResponseEntity<?> responseEntity = new ResponseEntity<>(response, HttpStatus.OK);
+		return responseEntity;
+
+
+	}
+
 }

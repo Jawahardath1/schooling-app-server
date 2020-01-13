@@ -53,4 +53,7 @@ public class TeacherService {
 		return teacherRepository.save(teacher);
 	}
 
+	public int updateTeacher(TeacherVo vo) {
+		return teacherDao.updateTeacher(vo);
+	}
 }

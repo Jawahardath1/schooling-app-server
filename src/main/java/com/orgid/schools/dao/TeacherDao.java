@@ -21,4 +21,6 @@ public interface TeacherDao {
 	 * @return
 	 */
 	public List<TeacherVo> getTeacher(TeacherVo vo);
+
+	public int updateTeacher(TeacherVo vo);
 }
