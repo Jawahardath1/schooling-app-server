@@ -3,21 +3,19 @@
  */
 package com.orgid.schools.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.orgid.schools.vo.StudentVo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import com.orgid.schools.model.Teacher;
 import com.orgid.schools.security.CurrentUser;
 import com.orgid.schools.security.UserPrincipal;
 import com.orgid.schools.service.TeacherService;
 import com.orgid.schools.vo.TeacherVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Jawahar Dath Thangirala
@@ -69,12 +67,12 @@ public class TeacherController {
 		teacher.setUpdatedBy(currentUser.getId());
 						
 		// Insert Teacher
-		Teacher teacherResponse = teacherService.insertTeacher(teacher);		
-		
+		Teacher teacherResponse = teacherService.insertTeacher(teacher);
+
 		if(teacherResponse != null && teacherResponse.getId() != null) {
 			response.put("returnValue", 1);
 		}
-		
+
 		response.put("completed", true);
 		response.put("httpCode", "200");
 		response.put("message", "Ok");
@@ -99,8 +97,8 @@ public class TeacherController {
 			return responseEntity;
 		}
 
-		int studentResponse = teacherService.updateTeacher(vo);
-		response.put("returnValue", studentResponse);
+		int parentResponse = teacherService.updateTeacher(vo);
+		response.put("returnValue", parentResponse);
 		ResponseEntity<?> responseEntity = new ResponseEntity<>(response, HttpStatus.OK);
 		return responseEntity;
 

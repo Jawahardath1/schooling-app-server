@@ -26,14 +26,14 @@
         <if test="updated_by  	!= null and updated_by  != ''">    AND created_by  	LIKE CONCAT('%',#{created_by},'%')   </if>        
     </select>
     
-    <update id="updateTeacher" parameterType="com.orgid.schools.vo.TeacherVo">
-        UPDATE teacher
+    <update id="updateParent" parameterType="com.orgid.schools.vo.ParentVo">
+        UPDATE parent
         SET
              firstname      = #{firstname}
 			,middlename     = #{middlename}
 			,lastname       = #{lastname}						
 			,zipcode        = #{zipcode}			
-        WHERE teacherid     = #{teacherid}
+        WHERE parentid      = #{parentid}
     </update>
      
 </mapper>

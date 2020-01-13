@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface ParentDao {
     List<ParentVo> getParent(ParentVo vo);
+
+    int updateParent(ParentVo vo);
 }
