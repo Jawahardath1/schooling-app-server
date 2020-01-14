@@ -1,18 +1,14 @@
 package com.orgid.schools.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.orgid.schools.model.audit.DateAudit;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.NaturalId;
-
-import com.orgid.schools.model.audit.DateAudit;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Jawahar Dath Thangirala
@@ -25,6 +21,9 @@ import com.orgid.schools.model.audit.DateAudit;
         }),
         @UniqueConstraint(columnNames = {
             "email"
+        }),
+        @UniqueConstraint(columnNames = {
+              "loginid"
         })
 })
 public class User extends DateAudit {
@@ -38,9 +37,9 @@ public class User extends DateAudit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Size(max = 40)
-    private String name;
+//    @NotBlank
+//    @Size(max = 40)
+//    private String name;
 
     @NotBlank
     @Size(max = 15)
@@ -56,6 +55,15 @@ public class User extends DateAudit {
     @Size(max = 100)
     private String password;
 
+    @NotBlank
+    @Size(max = 1)
+    private String type;
+
+    @NotBlank
+    @Size(max = 15)
+    private String loginid;
+
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -66,11 +74,13 @@ public class User extends DateAudit {
 
     }
 
-    public User(String name, String username, String email, String password) {
-        this.name = name;
-        this.username = username;
-        this.email = email;
-        this.password = password;
+    public User(String username, String email, String password, String type, String loginid) {
+        // this.name = name;
+        this.username   = username;
+        this.email      = email;
+        this.password   = password;
+        this.loginid    = loginid;
+        this.type       = type;
     }
 
     public Long getId() {
@@ -89,13 +99,13 @@ public class User extends DateAudit {
         this.username = username;
     }
 
-    public String getName() {
+   /* public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
+    }*/
 
     public String getEmail() {
         return email;
@@ -112,6 +122,14 @@ public class User extends DateAudit {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getType() { return type; }
+
+    public void setType(String type) { this.type = type; }
+
+    public String getLoginid() { return loginid; }
+
+    public void setLoginid(String loginid) { this.loginid = loginid; }
 
     public Set<Role> getRoles() {
         return roles;

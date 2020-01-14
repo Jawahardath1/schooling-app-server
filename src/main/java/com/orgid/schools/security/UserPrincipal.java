@@ -3,17 +3,16 @@
  */
 package com.orgid.schools.security;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.orgid.schools.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.orgid.schools.model.User;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Jawahar Dath Thangirala
@@ -27,7 +26,7 @@ public class UserPrincipal implements UserDetails {
 
 	private Long id;
 
-    private String name;
+    //private String name;
 
     private String username;
 
@@ -39,9 +38,9 @@ public class UserPrincipal implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrincipal(Long id, String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
-        this.name = name;
+        //this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
@@ -55,7 +54,7 @@ public class UserPrincipal implements UserDetails {
 
         return new UserPrincipal(
                 user.getId(),
-                user.getName(),
+                /*user.getName(),*/
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
@@ -67,9 +66,9 @@ public class UserPrincipal implements UserDetails {
         return id;
     }
 
-    public String getName() {
+    /*public String getName() {
         return name;
-    }
+    }*/
 
     public String getEmail() {
         return email;

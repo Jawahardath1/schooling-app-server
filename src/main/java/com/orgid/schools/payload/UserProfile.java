@@ -13,13 +13,13 @@ public class UserProfile {
 	
 	private Long id;
     private String username;
-    private String name;
+    // private String name;
     private Instant joinedAt;
     
-    public UserProfile(Long id, String username, String name, Instant joinedAt) {
+    public UserProfile(Long id, String username, Instant joinedAt) {
         this.id = id;
         this.username = username;
-        this.name = name;
+        // this.name = name;
         this.joinedAt = joinedAt;
     }
 
@@ -39,13 +39,13 @@ public class UserProfile {
         this.username = username;
     }
 
-    public String getName() {
+    /*public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
+    }*/
 
     public Instant getJoinedAt() {
         return joinedAt;
