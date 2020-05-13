@@ -68,7 +68,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.16.12</version><!--$NO-MVN-MAN-VER$-->
+			<version>1.18.12</version><!--$NO-MVN-MAN-VER$-->
 			<scope>provided</scope>
 		</dependency>
 		
@@ -80,11 +80,11 @@
 		</dependency>
 		
 		<!-- lombok jar for getters and setters -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.16.18</version>
-		</dependency>
+		</dependency> -->
 		
 	</dependencies>
 
