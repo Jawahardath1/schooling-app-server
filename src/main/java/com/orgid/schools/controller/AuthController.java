@@ -36,7 +36,7 @@ import java.util.Map;
  * @author Jawahar Dath Thangirala
  * Sep 9, 2019
  */
-@SuppressWarnings({"rawtypes", "unchecked"})
+@SuppressWarnings({"unused"})
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

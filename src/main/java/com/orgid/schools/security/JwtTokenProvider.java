@@ -34,6 +34,9 @@ public class JwtTokenProvider {
 
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
+        
+        System.out.println("Now Time ==> " + now.getTime());
+        System.out.println("Expiry Time ==> " + expiryDate.getTime());        
 
         return Jwts.builder()
                 .setSubject(Long.toString(userPrincipal.getId()))

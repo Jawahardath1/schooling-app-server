@@ -1,6 +1,7 @@
 app:
   jwtExpirationInMs: 604800000
   jwtSecret: JWTSuperSecretKey
+  # 604800000 is in milliseconds that is 168 hours. Token will be valid for 7 days 
 logging:
   level:
     org:
